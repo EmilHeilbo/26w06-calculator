@@ -1,32 +1,40 @@
-from math import pow, sqrt
+from math import pow
 
 
-def calculate(operator, num_1, num_2) -> float | AssertionError:
+def calculate(operator: str, a: float, b: float) -> float:
     match operator:
         case "√":
-            return num_1 ** (1 / num_2)
+            return pow(a, (1 / b))
         case "^":
-            return num_1**num_2
+            return pow(a, b)
         case "+":
-            return num_1 + num_2
+            return a + b
         case "-":
-            return num_1 - num_2
+            return a - b
         case "*":
-            return num_1 * num_2
+            return a * b
         case "/":
-            return num_1 / num_2
+            return a / b
         case _:
-            raise AssertionError("The specified operator is incorrect.")
+            return 0.0
 
 
 if __name__ == "__main__":
-    _operator = input("Type your chosen operator of the following: + - * / ^ √\n")
-    _num_1 = float(input("Now enter the first number: "))
-    if _operator == "^" or _operator == "√":
-        _result = calculate(_operator, _num_1, 2)
-        print(_result)
-        pass
-    _num_2 = float(input("Now enter the second number: "))
-    _result = calculate(_operator, _num_1, _num_2)
-    print(_result)
+    _ops = ["+", "-", "*", "/", "^", "√"]
+    _op = None
+    while _op not in _ops:
+        _op = input(f"Type your chosen operator of the following: {' '.join(_ops)}\n")
+    _num_1 = None
+    _num_2 = None
+    while None in [_num_1, _num_2]:
+        try:
+            _num_1 = float(input("Enter the first number: "))
+            if _op in _ops[-2:]:
+                _num_2 = float(input("Enter the exponent/nth-root: "))
+            else:
+                _num_2 = float(input("Enter the second number: "))
+            _result = calculate(_op, _num_1, _num_2)
+            print(_result)
+        except ValueError:
+            print("The input was not a number, try again.")
     pass
