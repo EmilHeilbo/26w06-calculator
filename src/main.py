@@ -29,10 +29,12 @@ if __name__ == "__main__":
     while None in [_num_1, _num_2]:
         try:
             _num_1 = float(input("Enter the first number: "))
-            if _op in _ops[-2:]:
-                _num_2 = float(input("Enter the exponent/nth-root: "))
-            else:
-                _num_2 = float(input("Enter the second number: "))
+            _num_2_prompt = (
+                "Enter the exponent/nth-root: "
+                if _op in _ops[-2:]
+                else "Enter the second number: "
+            )
+            _num_2 = float(input(_num_2_prompt))
             _result = calculate(_op, _num_1, _num_2)
             print(_result)
         except ValueError:
